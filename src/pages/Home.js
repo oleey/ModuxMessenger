@@ -23,31 +23,38 @@ const Home = () => {
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
+  const [role, setRole] = useState("");
   const [msgs, setMsgs] = useState([]);
 
   const user1 = auth.currentUser.uid;
 
   useEffect(() => {
     const usersRef = collection(db, "users");
+
     // create query object
-    const q = query(usersRef, where("uid", "not-in", [user1]));
+    const qr = query(usersRef, where("role", "==", "Agent"));
+     //const q = query(usersRef, where("uid", "not-in", [user1]));
     // execute query
 
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let users = [];
-      querySnapshot.forEach((doc) => {
-        users.push(doc.data());
-      });
-      setUsers(users);
-    });
-    return () => unsub();
+     const unsub = onSnapshot(qr, (querySnapshot) => {
+       let users = [];
+       querySnapshot.forEach((doc) => {
+         users.push(doc.data());
+       });
+       setUsers(users);
+     });
+     return () => unsub();
   }, []);
 
+ // console.log(users.role);
   const selectUser = async (user) => {
 
     setChat(user);
 
     const user2 = user.uid;
+    console.log(user.role);
+    //const user2 = "OK6xYE2kSBfFIi5kR1R93hpLI3q1";
+
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
     const msgsRef = collection(db, "messages", id, "chat");
@@ -79,6 +86,8 @@ const Home = () => {
     }
 
     const user2 = chat.uid;
+    //const user2 = "OK6xYE2kSBfFIi5kR1R93hpLI3q1";
+    console.log(user2);
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 

@@ -6,11 +6,6 @@ import { db } from "../firebase";
 const User = ({ user1, user, selectUser, chat }) => {
   const user2 = user?.uid;
   const [data, setData] = useState("");
-  console.log("1"+user?.role);
-  console.log("2"+user1.role);
-  console.log("3"+user2.role);
-
-
 
   useEffect(() => {
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
