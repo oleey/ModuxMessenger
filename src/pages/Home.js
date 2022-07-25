@@ -32,6 +32,7 @@ const Home = () => {
     // create query object
     const q = query(usersRef, where("uid", "not-in", [user1]));
     // execute query
+
     const unsub = onSnapshot(q, (querySnapshot) => {
       let users = [];
       querySnapshot.forEach((doc) => {
@@ -43,6 +44,7 @@ const Home = () => {
   }, []);
 
   const selectUser = async (user) => {
+
     setChat(user);
 
     const user2 = user.uid;
@@ -70,12 +72,18 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
+
+    if(text === "" && img === ""){
+      return;
+    }
 
     const user2 = chat.uid;
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
     let url;
+
     if (img) {
       const imgRef = ref(
         storage,

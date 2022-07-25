@@ -4,6 +4,7 @@ import Moment from "react-moment";
 const Message = ({ msg, user1 }) => {
   const scrollRef = useRef();
 
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [msg]);

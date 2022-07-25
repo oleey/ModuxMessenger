@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav>
       <h3>
-        <Link to="/">Messenger</Link>
+        <Link to="/">Modux Messenger</Link>
       </h3>
       <div>
         {user ? (

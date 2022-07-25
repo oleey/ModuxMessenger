@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 const Register = () => {
   const [data, setData] = useState({
     name: "",
+    role: "",
     email: "",
     password: "",
     error: null,
@@ -15,7 +16,7 @@ const Register = () => {
 
   const history = useHistory();
 
-  const { name, email, password, error, loading } = data;
+  const { name, role, email, password, error, loading } = data;
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -23,6 +24,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    var select = document.getElementById('role');
+    var value = select.options[select.selectedIndex].value;
+
     setData({ ...data, error: null, loading: true });
     if (!name || !email || !password) {
       setData({ ...data, error: "All fields are required" });
@@ -36,6 +41,7 @@ const Register = () => {
       await setDoc(doc(db, "users", result.user.uid), {
         uid: result.user.uid,
         name,
+        role: value,
         email,
         createdAt: Timestamp.fromDate(new Date()),
         isOnline: true,
@@ -43,6 +49,7 @@ const Register = () => {
       setData({
         name: "",
         email: "",
+        role: "",
         password: "",
         error: null,
         loading: false,
@@ -60,6 +67,15 @@ const Register = () => {
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={name} onChange={handleChange} />
         </div>
+
+        <div className="input_container">
+
+        <label htmlFor="role">Your role:</label>
+          <select name="role" id="role">
+            <option value="Member" onChange={handleChange}>Member</option>
+            <option value="Agent" onChange={handleChange}>Agent</option>
+          </select> 
+          </div>
         <div className="input_container">
           <label htmlFor="email">Email</label>
           <input
