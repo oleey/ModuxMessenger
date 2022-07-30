@@ -88,8 +88,8 @@ async function requestNotificationsPermissions() {
     const usersRef = collection(db, "users");
 
     // create query object
-    //const qr = query(usersRef, where("role", "==", "Agent"));
-     const qr = query(usersRef, where("uid", "not-in", [user1]));
+    const qr = query(usersRef, where("role", "==", "Agent"));
+     //const qr = query(usersRef, where("uid", "not-in", [user1]));
     // execute query
 
      const unsub = onSnapshot(qr, (querySnapshot) => {
