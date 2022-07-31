@@ -182,15 +182,14 @@ section .form {
 }
 .message_form {
   position: absolute;
-  left: 5%;
   width: 85%;
   height: 30px;
   display: flex;
   align-items: center;
 }
 .message_form input {
-  width: 40vw;
-  margin: 0px 10px 10px;
+  width: 20vw;
+  margin: 0px 9px 0px;
   padding: 10px;
   border-radius: 5px;
   outline: none;
