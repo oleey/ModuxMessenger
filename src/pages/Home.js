@@ -34,6 +34,8 @@ const Home = () => {
  const [progress, setProgress] = useState(0);
 
 
+ 
+
   const user1 = auth.currentUser.uid;
   const user2 = chat.uid;
   const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
@@ -115,6 +117,7 @@ async function requestNotificationsPermissions() {
     const msgsRef = collection(db, "messages", id, "chat");
     const q = query(msgsRef, orderBy("createdAt", "asc"));
 
+    //msgs.setMsgs(0).setText();
     onSnapshot(q, (querySnapshot) => {
       let msgs = [];
       console.log("msgs1:", msgs);

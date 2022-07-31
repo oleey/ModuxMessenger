@@ -13,7 +13,7 @@
 
 /* Navbar */
 nav {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   height: 70px;
@@ -182,8 +182,8 @@ section .form {
 }
 .message_form {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  left: 5%;
+  width: 85%;
   height: 30px;
   display: flex;
   align-items: center;
