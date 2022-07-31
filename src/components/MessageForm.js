@@ -11,10 +11,10 @@ const MessageForm = ({ handleSubmit, handleOnChange, text, setText, setImg, prog
         onChange=
         {handleOnChange}
         type="file" multiple
-        //id="img"
-        id="imginput"
+        id="img"
+        //id="imginput"
         accept="image/*"
-        //style={{ display: "none" }}
+        style={{ display: "none" }}
       />
       <div>
         <input
