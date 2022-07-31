@@ -269,6 +269,9 @@ section .form {
   .message_wrapper p {
     max-width: 75%;
   }
+  .message_form imginput{
+    display: "none";
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -292,6 +295,10 @@ section .form {
   }
   .message_form .btn {
     margin: 0px;
+  }
+
+  .message_form imginput{
+    display: "none";
   }
 
   .message_wrapper p {
