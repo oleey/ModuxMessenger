@@ -13,7 +13,9 @@
 
 # misc
 .DS_Store
+react-firebase-chat/
 .env
+.expo
 .env.local
 .env.development.local
 .env.test.local

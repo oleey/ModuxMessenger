@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail} from "firebase/auth";
 import { auth, db } from "../firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
@@ -16,6 +16,24 @@ const Login = () => {
 
   const { email, password, error, loading } = data;
 
+  const triggerResetEmail = async () => {
+    await sendPasswordResetEmail(auth, "contact@moduxexchange.com");
+    //await sendPasswordResetEmail(auth, "atandaminat@gmail.com");
+
+    console.log("Password reset email sent");
+    alert('Please check your email...')
+
+  }
+
+  const forgotPassword = () => {
+    sendPasswordResetEmail(email)
+        .then(function () {
+            alert('Please check your email...')
+        }).catch(function (e) {
+            console.log(e)
+        }) 
+    }
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -28,6 +46,26 @@ const Login = () => {
     }
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
+      //.then(()=>{
+        // send verification mail.
+      //user.user.sendEmailVerification();
+      //sendEmailVerification(auth.currentUser)
+      //auth.signOut();
+      //alert("Email sent");
+
+     // sendPasswordResetEmail(auth, email)
+ // .then(() => {
+    // Password reset email sent!
+    // ..
+ // })
+ // .catch((error) => {
+  //  const errorCode = error.code;
+   // const errorMessage = error.message;
+    // ..
+  //});
+    //  history.replace("/");
+   // })
+   // .catch(alert);
 
       await updateDoc(doc(db, "users", result.user.uid), {
         isOnline: true,
@@ -42,7 +80,17 @@ const Login = () => {
     } catch (err) {
       setData({ ...data, error: err.message, loading: false });
     }
+
+   // sendEmailVerification(auth.currentUser)
+ // .then(() => {
+    // Email verification sent!
+    // ...
+  //});
+
+    
   };
+
+  
   return (
     <section>
       <h3>Log into your Account</h3>
@@ -71,9 +119,13 @@ const Login = () => {
             {loading ? "Logging in ..." : "Login"}
           </button>
         </div>
+        
       </form>
+
     </section>
   );
 };
+
+// add to line 125     <div className="btn_container"> <button className="btn" onClick={triggerResetEmail}>Reset Password</button></div>
 
 export default Login;

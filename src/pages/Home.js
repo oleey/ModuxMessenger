@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db, auth, storage, notification } from "../firebase";
+
 import {
   getFirestore,
   collection,
@@ -34,7 +35,8 @@ const Home = () => {
  const [progress, setProgress] = useState(0);
 
 
- 
+ //const auth = getAuth();
+
 
   const user1 = auth.currentUser.uid;
   const user2 = chat.uid;
@@ -113,16 +115,37 @@ async function requestNotificationsPermissions() {
     console.log(user.role);
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+    addDoc(collection(db, "messages", id, "chat"), {
+      text: "Hello. What will you like to trade with us?",
+      from: user2,
+      to: user1,
+      createdAt: Timestamp.fromDate(new Date()),
+    });
+
+
+    setDoc(doc(db, "lastMsg", id), {
+      text: "Hello. What will you like to trade with us?",
+      from: user2,
+      to: user1,
+      createdAt: Timestamp.fromDate(new Date()),
+      unread: true,
+    });
+
+    console.log("text1", text);
+
 
     const msgsRef = collection(db, "messages", id, "chat");
     const q = query(msgsRef, orderBy("createdAt", "asc"));
+    const firstmsg = "First message";
 
-    //msgs.setMsgs(0).setText();
+    console.log('Added document with ID: ', msgsRef.id);
+
+
+    console.log("text", text);
+
     onSnapshot(q, (querySnapshot) => {
       let msgs = [];
       console.log("msgs1:", msgs);
-     // console.log("msgs2:", msgs.setChat(0).setText("Hello, welcome to modux"));
-    // console.log("1:", msgs.data(0).setText("HEllo dear"));
 
       querySnapshot.forEach((doc) => {
         msgs.push(
@@ -130,9 +153,7 @@ async function requestNotificationsPermissions() {
           
           );
       });
-        //  console.log("1:", msgs.data().setText("HEllo dear"));
 
-      //console.log("2:", doc.data(0).setText("HEllo dear"));
       setMsgs(msgs);
     });
 
@@ -327,7 +348,9 @@ const uploadImageAsPromise = async(img) => {
                     <Message 
                     key={i} 
                     msg={msg} 
-                    user1={user1} />
+                    user1={user1} 
+                    urls = {urls}
+                   />
                   ))
                 : null}
 
