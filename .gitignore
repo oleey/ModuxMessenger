@@ -14,6 +14,8 @@
 # misc
 .DS_Store
 react-firebase-chat/
+moduxmessenger/
+.idea/
 .env
 .expo
 .env.local

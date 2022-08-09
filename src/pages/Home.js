@@ -136,9 +136,6 @@ async function requestNotificationsPermissions() {
 
     const msgsRef = collection(db, "messages", id, "chat");
     const q = query(msgsRef, orderBy("createdAt", "asc"));
-    const firstmsg = "First message";
-
-    console.log('Added document with ID: ', msgsRef.id);
 
 
     console.log("text", text);
@@ -240,7 +237,10 @@ const uploadImageAsPromise = async(img) => {
     .then((urls) => {
       console.log('File available at', urls);
      // urls.push(downloadURL);
-      //setUrls(urls);
+      //setUrls(urls)
+
+
+
       setUrls((prevState) => [...prevState, urls]);
 
       addDoc(collection(db, "messages", id, "chat"), {

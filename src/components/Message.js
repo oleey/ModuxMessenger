@@ -7,7 +7,17 @@ const Message = ({ msg, user1, urls }) => {
 
   //const uri = msg.media;
 
-  //const Download = async (uri) => {
+  const Download = () => {
+    console.log("here", msg.media);
+    // This can be downloaded directly:
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = (event) => {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', msg.media);
+    xhr.send();
+  }
  //   const downloadInstance = FileSystem.createDownloadResumable(
   //    uri,
   //    FileSystem.documentDirectory + "image.jpg"
@@ -33,11 +43,9 @@ const Message = ({ msg, user1, urls }) => {
       ref={scrollRef}
     >
       <p className={msg.from === user1 ? "me" : "friend"}>
-        {msg.media ? <img src={msg.media} alt={msg.text}
-       // onClick={() => (Download
-//) }
-        //onClick=()=>{urls}
-        /> : null}
+        {msg.media ? 
+        <a href ={msg.media} download="media"><img src={msg.media} alt={msg.text}
+        /></a> : null}
         {msg.text}
         <br />
         <small>
