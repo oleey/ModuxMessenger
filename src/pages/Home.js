@@ -106,15 +106,17 @@ async function requestNotificationsPermissions() {
      return () => unsub();
   }, []);
 
- // console.log(users.role);
   const selectUser = async (user) => {
 
     setChat(user);
 
     const user2 = user.uid;
     console.log(user.role);
+    console.log("stst", user.isOnline);
+
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+   if(user.role === "Agent"){
     addDoc(collection(db, "messages", id, "chat"), {
       text: "Hello. What will you like to trade with us?",
       from: user2,
@@ -130,15 +132,10 @@ async function requestNotificationsPermissions() {
       createdAt: Timestamp.fromDate(new Date()),
       unread: true,
     });
-
-    console.log("text1", text);
-
+  }
 
     const msgsRef = collection(db, "messages", id, "chat");
     const q = query(msgsRef, orderBy("createdAt", "asc"));
-
-
-    console.log("text", text);
 
     onSnapshot(q, (querySnapshot) => {
       let msgs = [];

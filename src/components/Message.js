@@ -44,7 +44,7 @@ const Message = ({ msg, user1, urls }) => {
     >
       <p className={msg.from === user1 ? "me" : "friend"}>
         {msg.media ? 
-        <a href ={msg.media} download="media"><img src={msg.media} alt={msg.text}
+        <a href ={msg.media} download={msg.media}><img src={msg.media} alt={msg.text}
         /></a> : null}
         {msg.text}
         <br />
