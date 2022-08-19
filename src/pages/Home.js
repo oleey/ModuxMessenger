@@ -92,7 +92,7 @@ async function requestNotificationsPermissions() {
     const usersRef = collection(db, "users");
 
     // create query object
-    const qr = query(usersRef, where("role", "==", "Agent"));
+   const qr = query(usersRef, where("role", "==", "Agent"));
      //const qr = query(usersRef, where("uid", "not-in", [user1]));
     // execute query
 
@@ -174,9 +174,18 @@ async function requestNotificationsPermissions() {
      var newImage = e.target.files[i];
      console.log(":", newImage);
      // setImg((prevState) => [...prevState, newImage]);
+    // setImg(URL.createObjectURL(newImage));
       images.push(newImage);
 
     }
+
+    images.map((image) => {
+      console.log("image: ", image);
+       console.log("images2: ", images);
+ 
+ 
+       uploadImageAsPromise (image);
+      });
 
     //console.log(":na me oo", images);
 
@@ -299,22 +308,23 @@ const uploadImageAsPromise = async(img) => {
 
     }
 
-    if (images) {
-    images.map((image) => {
-     console.log("image: ", image);
-      console.log("images2: ", images);
+    //if (images) {
+    //images.map((image) => {
+     //console.log("image: ", image);
+      //console.log("images2: ", images);
 
 
-      uploadImageAsPromise (image);
+     // uploadImageAsPromise (image);
 
       
-    });
-    }
+   // });
+   // }
 
     console.log("urls: ", urls);
 
 
     console.log("images: ", images);
+    requestNotificationsPermissions();
 
     setText("");
     setImg([]);
